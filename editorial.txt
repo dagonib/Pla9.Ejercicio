@@ -1,0 +1,25 @@
+CREATE DATABASE  IF NOT EXISTS editorial;
+
+USE `editorial`;
+CREATE TABLE `users` (
+  `username` varchar(50) NOT NULL,
+  `password` varchar(68) NOT NULL,
+  `enabled` tinyint(1) NOT NULL,
+  PRIMARY KEY (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `authorities` (
+  `username` varchar(50) NOT NULL,
+  `authority` varchar(50) NOT NULL,
+  UNIQUE KEY `ix_auth_username` (`username`,`authority`),
+  CONSTRAINT `fk_authorities_users` FOREIGN KEY (`username`) REFERENCES `users` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+INSERT INTO `users` VALUES ('gabriel','{bcrypt}$2y$12$lyg3ltFODio3mThkkX.HkepL7xrxP/BPHYH1egqnkcLj5U7LEjPk2',1),
+('lara','{bcrypt}$2y$12$ksksSa4/LJnbnFOLiEAPPOUle.fd30OJ8/pZ06ooBwXW1NbMH1RLi',1),
+('marta','{bcrypt}$2y$12$f0OvHgs0uSfwonMJsX0Geum7MNr1ouzMXAfttN7C5xzPoqh/kIhpK',1),
+('veronica','{bcrypt}$2y$12$.7G51tSY/2WRDjPwpX.Kb.ltbZ2349NryRZemXOweqdRUz5mBVbri',1),
+('xavi','{bcrypt}$2y$12$Q7e/WzKxyGmQTa4G.a8VJO9cQhidVPkWqC7e.Azggz6NAO1W3.P5i',1);
+
+INSERT INTO `authorities` VALUES ('gabriel','ROLE_COLABORADOR'),('lara','ROLE_EDITOR'),('marta','ROLE_COLABORADOR'),('marta','ROLE_ADMIN'),('veronica','ROLE_COLABORADOR'),('veronica','ROLE_EDITOR'),('xavi','ROLE_COLABORADOR'),('xavi','ROLE_ADMIN'),('xavi','ROLE_EDITOR');
